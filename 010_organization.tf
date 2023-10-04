@@ -1,0 +1,28 @@
+resource "github_organization_settings" "organization" {
+  name                                                         = var.organization.name
+  billing_email                                                = var.organization.settings.billing_email
+  company                                                      = try(var.organization.settings.company, null)
+  blog                                                         = try(var.organization.settings.blog, null)
+  email                                                        = try(var.organization.settings.email, null)
+  twitter_username                                             = try(var.organization.settings.twitter_username, null)
+  location                                                     = try(var.organization.settings.location, null)
+  description                                                  = try(var.organization.settings.description, null)
+  has_organization_projects                                    = try(var.organization.settings.has_organization_projects, true)
+  has_repository_projects                                      = try(var.organization.settings.has_repository_projects, true)
+  default_repository_permission                                = try(var.organization.settings.default_repository_permission, "read")
+  members_can_create_repositories                              = try(var.organization.settings.members_can_create_repositories, false)
+  members_can_create_public_repositories                       = try(var.organization.settings.members_can_create_public_repositories, false)
+  members_can_create_private_repositories                      = try(var.organization.settings.members_can_create_private_repositories, false)
+  members_can_create_internal_repositories                     = try(var.organization.settings.members_can_create_internal_repositories, false)
+  members_can_create_pages                                     = try(var.organization.settings.members_can_create_pages, false)
+  members_can_create_public_pages                              = try(var.organization.settings.members_can_create_public_pages, false)
+  members_can_create_private_pages                             = try(var.organization.settings.members_can_create_private_pages, false)
+  members_can_fork_private_repositories                        = try(var.organization.settings.members_can_fork_private_repositories, false)
+  web_commit_signoff_required                                  = try(var.organization.settings.web_commit_signoff_required, false)
+  advanced_security_enabled_for_new_repositories               = try(var.organization.settings.advanced_security_enabled_for_new_repositories, false)
+  dependabot_alerts_enabled_for_new_repositories               = try(var.organization.settings.dependabot_alerts_enabled_for_new_repositories, false)
+  dependabot_security_updates_enabled_for_new_repositories     = try(var.organization.settings.advanced_security_enabled_for_new_repositories, false)
+  dependency_graph_enabled_for_new_repositories                = try(var.organization.settings.dependency_graph_enabled_for_new_repositories, false)
+  secret_scanning_enabled_for_new_repositories                 = try(var.organization.settings.secret_scanning_enabled_for_new_repositories, false)
+  secret_scanning_push_protection_enabled_for_new_repositories = try(var.organization.settings.secret_scanning_push_protection_enabled_for_new_repositories, false)
+}
