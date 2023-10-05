@@ -8,7 +8,10 @@ Terraform module wrapper around the [Terraform GitHub provider](https://www.terr
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Usage](#usage)
-  * [Importing existing resources](#importing-existing-resources) 
+  * [Importing existing resources](#importing-existing-resources)
+    * [Organization](#organization)
+    * [Teams](#teams)
+    * [Repositories](#repositories)
 * [External Documentation](#external-documentation)
 
 ## Requirements
@@ -61,16 +64,16 @@ Terraform module wrapper around the [Terraform GitHub provider](https://www.terr
     Repository description.
   - [**`visibility`**](#attr-repositories-visibility): *(Optional `string`, Default is `public`)*<a name="attr-repositories-visibility"></a>  
     Repository privacy (["private", "public"]).
+  - [**`is_template`**](#attr-repositories-is_template): *(Optional `bool`, Default is `false`)*<a name="attr-repositories-is_template"></a>  
+    Flag repository as template.
   - [**`topics`**](#attr-repositories-topics): *(Optional `list(string)`)*<a name="attr-repositories-topics"></a>  
     List of topics.
   - [**`collaborators`**](#attr-repositories-collaborators): *(Optional `list(object)`)*<a name="attr-repositories-collaborators"></a>  
-    List of collaborators (team and/or member) and corresponding permission.
+    List of collaborators (team and/or username) and corresponding permission.
   - [**`branch_protections`**](#attr-repositories-branch_protections): *(Optional `map(object)`)*<a name="attr-repositories-branch_protections"></a>  
     List of branch protections.
   - [**`gitignoreTemplate`**](#attr-repositories-gitignoreTemplate): *(Optional `string`)*<a name="attr-repositories-gitignoreTemplate"></a>  
     .gitignore template.
-  - [**`licenseTemplate`**](#attr-repositories-licenseTemplate): *(Optional `string`)*<a name="attr-repositories-licenseTemplate"></a>  
-    License template.
   - [**`files`**](#attr-repositories-files): *(Optional `map(object)`)*<a name="attr-repositories-files"></a>  
     List of files.
 
@@ -82,8 +85,14 @@ The following attributes are exported by the module:
   GitHub organization ID.
 - [**`organization_settings`**](#output-organization_settings): *(`object`)*<a name="output-organization_settings"></a>  
   GitHub organization settings.
+- [**`users`**](#output-users): *(`list(object)`)*<a name="output-users"></a>  
+  A list of `user` resource objects that describe all members of the organization.
+- [**`users_missing_iac`**](#output-users_missing_iac): *(`set(string)`)*<a name="output-users_missing_iac"></a>  
+  List of users not being configured via the module.
 - [**`organization_blocked_users`**](#output-organization_blocked_users): *(`set(string)`)*<a name="output-organization_blocked_users"></a>  
   A list of `github_organization_block` resource objects that describe all users that are blocked by the organization.
+- [**`teams`**](#output-teams): *(`list(object)`)*<a name="output-teams"></a>  
+  A list of `team` resource objects that describe all teams of the organization.
 - [**`teams_missing_iac`**](#output-teams_missing_iac): *(`set(string)`)*<a name="output-teams_missing_iac"></a>  
   List of teams not being configured via the module.
 - [**`team_membership`**](#output-team_membership): *(`set(string)`)*<a name="output-team_membership"></a>  
@@ -138,18 +147,27 @@ File `locals.tf` defining the variable values according to the [inputs definitio
 To import an existing organization, execute the following command:
 
 ```bash
-terraform import github_organization_settings.organization <ORGANIZATION_ID>
+terraform import module.<MODULE_NAME>.github_organization_settings.organization <ORGANIZATION_ID>
 ```
-> **NOTE:** Replace `<ORGANIZATION_ID>` with the GitHub Organization ID returned by the `module.github-organization.organization_id` output value upon `terraform plan`.
+> **NOTE:** Replace `<MODULE_NAME>` and `<ORGANIZATION_ID>` with the module name (in the example code `github-organization`) and GitHub Organization ID returned by the `module.<MODULE_NAME>.organization_id` output value upon `terraform plan`.
 
-#### Organization
+#### Teams
+
+To import an existing team, execute the following command:
+
+```bash
+$ terraform import 'module.<MODULE_NAME>.github_team.all["<TEAM_NAME>"]' <TEAM_SLUG>
+```
+> **NOTE:** Replace `<MODULE_NAME>` and `<TEAM_NAME>` with module name (in the example code `github-organization`) and the team name used by GitHub.
+
+#### Repositories
 
 To import an existing repository, execute the following command:
 
 ```bash
-$ terraform import 'github_repository.all[\"<REPOSITORY_SLUG>\"]' <REPOSITORY_SLUG>
+$ terraform import 'module.<MODULE_NAME>.github_repository.all["<REPOSITORY_SLUG>"]' <REPOSITORY_SLUG>
 ```
-> **NOTE:** Replace `<REPOSITORY_SLUG>` with the repository slug used by GitHub.
+> **NOTE:** Replace `<MODULE_NAME>` and `<REPOSITORY_SLUG>` with module name (in the example code `github-organization`) and the repository slug used by GitHub.
 
 ## External Documentation
 

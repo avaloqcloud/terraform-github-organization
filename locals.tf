@@ -1,5 +1,10 @@
 locals {
 
+  users_missing_iac = [
+    for user in data.github_organization.organization.users : user
+    if !contains(keys(var.users), user.login)
+  ]
+
   teams_missing_iac = [
     for team in data.github_organization_teams.all.teams : team
     if !contains(keys(var.teams), team)
@@ -42,7 +47,7 @@ locals {
       ],
       teams = [
         for collaborator in configuration.collaborators : {
-          team       = github_team.all[collaborator.team].slug,
+          team       = try(github_team.all[collaborator.team].slug, null),
           permission = collaborator.permission
         } if try(collaborator.team, "") != ""
       ]

@@ -8,9 +8,24 @@ output "organization_settings" {
   description = "GitHub organization settings"
 }
 
+output "users" {
+  description = "List of users"
+  value       = data.github_organization.organization.users
+}
+
+output "users_missing_iac" {
+  value       = local.users_missing_iac.*.login
+  description = "List of users missing configuration"
+}
+
 output "organization_blocked_users" {
   description = "List of blocked users"
   value       = github_organization_block.blocked_user
+}
+
+output "teams" {
+  description = "List of teams"
+  value       = github_team.all
 }
 
 output "teams_missing_iac" {

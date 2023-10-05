@@ -10,11 +10,11 @@ resource "github_repository" "all" {
   description = each.value.description
   #homepage_url
   visibility = each.value.visibility
-  #has_issues
+  has_issues = true
   #has_discussions
-  #has_projects
-  #has_wiki
-  #  is_template = regexall("template-repo.*", each.key) > 0
+  has_projects = true
+  has_wiki     = true
+  is_template  = each.value.is_template
   #allow_merge_commit
   #allow_squash_merge
   #allow_rebase_merge
@@ -23,9 +23,9 @@ resource "github_repository" "all" {
   #squash_merge_commit_message
   #merge_commit_title
   #merge_commit_message
-  delete_branch_on_merge = true
-  auto_init              = true
-  #has_downloads
+  delete_branch_on_merge = false
+  auto_init              = false
+  has_downloads          = true
   #auto_init
   gitignore_template = each.value.gitignore_template
   license_template   = "apache-2.0"

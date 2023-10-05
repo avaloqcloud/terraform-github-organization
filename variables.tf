@@ -53,7 +53,7 @@ variable "users" {
 
 variable "catch_non_existing_users" {
   description = "Validate provided GitHub users on `terraform plan`"
-  type = bool
+  type        = bool
 }
 
 variable "teams" {
@@ -71,13 +71,20 @@ variable "teams" {
 variable "repositories" {
   description = "Organization repositories"
   type = map(object({
-    name               = string
-    description        = string
-    visibility         = string
-    collaborators      = list(string)
-    is_template        = bool
+    description = string
+    visibility  = string
+    is_template = bool
+    topics      = list(string)
+    collaborators = list(object({
+      team       = string
+      username   = string
+      permission = string
+    }))
+    branch_protections = map(object({}))
     gitignore_template = string
-    topics             = list(string)
+    files = map(object({
+      content = string
+    }))
   }))
   default = {}
 }
