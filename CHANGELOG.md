@@ -8,11 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.2.0] - 2023-10-06
+
+### Added
+
+- Allow to set following flags on repositories:
+  - `has_discussions`
+  - `has_issues`
+  - `has_projects`
+  - `has_wiki`
+  - `vulnerability_alerts`
+- `template` attribute on repository
+
+
 ## [0.1.0] - 2023-10-05
 
 ### Added
 
-- Oganization settings, users, teams
+- Organization settings, users, teams
 - Initial simple repositories management
 - Outputs:
   - List of organization users
@@ -29,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation errors (incl. _Input_ items)
 
 
-[unreleased]: https://github.com/avaloqcloud/terraform-github-organization/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/avaloqcloud/terraform-github-organization/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/avaloqcloud/terraform-github-organization/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/avaloqcloud/terraform-github-organization/compare/v0.0.0...v0.1.0
 [0.0.0]: https://github.com/avaloqcloud/terraform-github-organization/releases/tag/v0.0.0

@@ -9,12 +9,12 @@ resource "github_repository" "all" {
   name        = each.key
   description = each.value.description
   #homepage_url
-  visibility = each.value.visibility
-  has_issues = true
-  #has_discussions
-  has_projects = true
-  has_wiki     = true
-  is_template  = each.value.is_template
+  visibility      = each.value.visibility
+  has_discussions = each.value.has_discussions
+  has_issues      = each.value.has_issues
+  has_projects    = each.value.has_projects
+  has_wiki        = each.value.has_wiki
+  is_template     = each.value.is_template
   #allow_merge_commit
   #allow_squash_merge
   #allow_rebase_merge
@@ -35,9 +35,18 @@ resource "github_repository" "all" {
   #security_and_analysis
   topics = each.value.topics
   #template
-  #vulnerability_alerts
+  vulnerability_alerts = each.value.vulnerability_alerts # For private repositories requires GitHub Advanced Security license
   #ignore_vulnerability_alerts_during_read
   #allow_update_branch
+
+  dynamic "template" {
+    for_each = each.value.template.repository == null ? toset([]) : toset([1])
+
+    content {
+      owner      = var.organization_slug
+      repository = each.value.template.repository
+    }
+  }
 }
 
 resource "github_repository_collaborators" "all" {

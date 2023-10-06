@@ -72,9 +72,17 @@ variable "repositories" {
   description = "Organization repositories"
   type = map(object({
     description = string
-    visibility  = string
-    is_template = bool
-    topics      = list(string)
+    template = object({
+      repository = string
+    })
+    visibility           = string
+    has_discussions      = bool
+    has_issues           = bool
+    has_projects         = bool
+    has_wiki             = bool
+    is_template          = bool
+    topics               = list(string)
+    vulnerability_alerts = bool
     collaborators = list(object({
       team       = string
       username   = string

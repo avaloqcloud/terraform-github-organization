@@ -62,12 +62,24 @@ Terraform module wrapper around the [Terraform GitHub provider](https://www.terr
   Map of organization repositories.
   - [**`description`**](#attr-repositories-description): *(Optional `string`)*<a name="attr-repositories-description"></a>  
     Repository description.
+  - [**`template`**](#attr-repositories-template): *(Optional `string`)*<a name="attr-repositories-template"></a>  
+    Repository template.
   - [**`visibility`**](#attr-repositories-visibility): *(Optional `string`, Default is `public`)*<a name="attr-repositories-visibility"></a>  
     Repository privacy (["private", "public"]).
+  - [**`has_discussions`**](#attr-repositories-has_discussions): *(Optional `bool`, Default is `false`)*<a name="attr-repositories-has_discussions"></a>  
+    Enable GitHub repository discussions ([GitHub About discussions](https://docs.github.com/en/discussions)).
+  - [**`has_issues`**](#attr-repositories-has_issues): *(Optional `bool`, Default is `false`)*<a name="attr-repositories-has_issues"></a>  
+    Enable GitHub repository issues ([GitHub About issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues)).
+  - [**`has_projects`**](#attr-repositories-has_projects): *(Optional `bool`, Default is `false`)*<a name="attr-repositories-has_projects"></a>  
+    Enable GitHub repository projects ([GitHub About projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects)).
+  - [**`has_wiki`**](#attr-repositories-has_wiki): *(Optional `bool`, Default is `false`)*<a name="attr-repositories-has_wiki"></a>  
+    Enable GitHub repository wiki ([GitHub About wiki](https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis)).
   - [**`is_template`**](#attr-repositories-is_template): *(Optional `bool`, Default is `false`)*<a name="attr-repositories-is_template"></a>  
     Flag repository as template.
   - [**`topics`**](#attr-repositories-topics): *(Optional `list(string)`)*<a name="attr-repositories-topics"></a>  
     List of topics.
+  - [**`vulnerability_alerts`**](#attr-repositories-vulnerability_alerts): *(Optional `bool`, Default is `false`)*<a name="attr-repositories-vulnerability_alerts"></a>  
+    Enable GitHub Dependabot alerts ([GitHub About Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)).
   - [**`collaborators`**](#attr-repositories-collaborators): *(Optional `list(object)`)*<a name="attr-repositories-collaborators"></a>  
     List of collaborators (team and/or username) and corresponding permission.
   - [**`branch_protections`**](#attr-repositories-branch_protections): *(Optional `map(object)`)*<a name="attr-repositories-branch_protections"></a>  
