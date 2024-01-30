@@ -49,6 +49,39 @@ resource "github_repository" "all" {
   }
 }
 
+resource "github_branch_protection" "all" {
+  for_each = {
+    for bp in local.branch_protections : "${bp.repository}:${bp.pattern}" => bp
+  }
+
+  repository_id = each.value.repository
+  pattern       = each.value.pattern
+
+  # By default, the restrictions of a branch protection rule do not apply to
+  # people with admin permissions to the repository or custom roles with the
+  # "bypass branch protections" permission in a repository.
+  enforce_admins = true
+  # By default, you cannot delete a protected branch. When you enable deletion
+  # of a protected branch, anyone with at least write permissions to the
+  # repository can delete the branch.
+  allows_deletions = false
+  # Enforces a linear commit Git history, which prevents anyone from pushing
+  # merge commits to a branch
+  required_linear_history = true
+
+  required_pull_request_reviews {
+    # Dismiss approved reviews automatically when a new commit is pushed.
+    dismiss_stale_reviews = true
+    # Restrict pull request review dismissals.
+    restrict_dismissals = true
+    # Require an approved review in pull requests including files with a
+    # designated code owner.
+    require_code_owner_reviews      = true
+    required_approving_review_count = 1
+    require_last_push_approval      = true
+  }
+}
+
 resource "github_repository_collaborators" "all" {
   for_each = local.repositories_collaborators
 

@@ -53,4 +53,13 @@ locals {
       ]
     }
   }
+
+  branch_protections = flatten([
+    for repository, configuration in var.repositories : [
+      for pattern, branch_protection in configuration.branch_protections : {
+        repository = repository
+        pattern    = pattern
+      }
+    ] if configuration.branch_protections != null
+  ])
 }
